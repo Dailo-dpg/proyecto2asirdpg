@@ -1,0 +1,35 @@
+sudo apt-get update
+sudo apt-get upgrade
+
+sudo lsusb (Verificamos que la raspberry reconoce la cámara)
+
+sudo apt-get install motion (Instalamos Motion)
+
+- Editamos el archivo de configuración para ajustar los diferentes parámetros que nos interesan. 
+
+sudo nano /etc/motion/motion.conf
+
+Daemon on
+stream_localhost off
+stream_maxrate 100
+Width 640
+Height 480
+Framerate 100
+Output_pictures off
+ffmpeg_output_movies off
+
+- Para activar la autenticación y aportarle un extra de seguridad editamos las siguientes líneas -
+
+#Set the authentication method (default: 0)
+#0 = disabled
+#1 = Basic authentication
+#2 = MD5 digest (the safer authentication)
+stream_auth_method 2
+
+#Authentication for the stream. Syntax username:password
+#Default: not defined (Disabled)
+stream_authentication usuarios:contraseña
+
+- Inicio del servicio -
+
+sudo motion -n
